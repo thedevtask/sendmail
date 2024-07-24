@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email</title>
+</head>
+<body>
+    <h1>Send an Email</h1>
+    <form action="" method="post">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="5" cols="40" required></textarea><br><br>
+        <input type="submit" value="Send Email">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Recipient
+        $to = 'thedevtask@gmail.com';
+        
+        // Get form data
+        $subject = htmlspecialchars($_POST['subject']);
+        $message = htmlspecialchars($_POST['message']);
+        
+        // Headers
+        $headers = 'From: media@pornhub.com' . "\r\n" .
+                   'Reply-To: media@pornhub.com' . "\r\n" .
+                   'X-Mailer: PHP/' . phpversion();
+        
+        // Send email
+        if (mail($to, $subject, $message, $headers)) {
+            echo '<p>Email sent successfully!</p>';
+        } else {
+            echo '<p>Failed to send email.</p>';
+        }
+    }
+    ?>
+</body>
+</html>
